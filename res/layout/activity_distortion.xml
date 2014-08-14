@@ -1,0 +1,63 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/wahwah_background"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".DistortionActivity"
+    android:keepScreenOn="true" >
+
+   	   <ImageButton
+        android:id="@+id/playButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+       android:layout_marginTop="50dp"
+        android:layout_marginLeft="30dp"
+        android:background="@android:drawable/btn_star_big_off"
+        android:src="@drawable/button_play"
+        android:textColorHint="@color/black_overlay" />
+    
+    
+    <ImageButton
+        android:id="@+id/acceleroWahWahRef"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="50dp"
+        android:layout_marginRight="40dp"
+        android:background="@android:drawable/btn_star_big_off"
+        android:src="@drawable/button_keep"
+        android:textColorHint="@color/black_overlay" />
+
+
+    
+        <ImageButton
+        android:id="@+id/led"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+       	android:layout_alignParentTop="true"
+        android:layout_marginTop="350dp"
+        android:layout_centerHorizontal="true"
+        android:background="@android:drawable/btn_star_big_off"
+        android:src="@drawable/led"
+        android:textColorHint="@color/black_overlay" />
+    
+
+    <ImageButton
+        android:id="@+id/startLoop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="400dp"
+        android:layout_centerHorizontal="true"
+        android:background="@android:drawable/btn_star_big_off"
+        android:src="@drawable/silver_button"
+        android:textColorHint="@color/black_overlay" />
+
+</RelativeLayout>
