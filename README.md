@@ -2,7 +2,7 @@ ParanoidFrog
 ============
 The Paranoid Frog Live consists on an audio loopback (mic-to-speakers) that applies effects based on the device's inclination.
 Putting that way it sounds confusing, but it's actually pretty simple: the app gets the audio data from an input plugged into the device (ideally, a guitar, but it also works for basses, keyboards, and basically any electric instrument), and applies digital sound effects (such as Reverb, Wahwah, Overdrive, Tremelo...). 
-Although the algorithms were right thinking on simplicity and mobile devices limitations, the jackpot of Paranoid Frog Live, is that it integrates the accelerometer's data into the effects!
+Although the algorithms were right thinking on simplicity and mobile devices limitations, the jackpot of Paranoid Frog Live, is that it integrates the accelerometer data into the effects!
 There are three regular effects, and three accelerometer based effects already implemented:
 * ``AcceleroFootSwitch`` - Selects which effect the user wants to use based on the guitar inclination range.
 * ``AcceleroTremelo`` - Changes the tremelo oscillation frequency based on the same factor as above.
