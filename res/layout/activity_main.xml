@@ -11,47 +11,44 @@
     android:keepScreenOn="true" >
 
     <ImageButton
-        android:id="@+id/reverbRef"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="140dp"
-        android:background="@null"
-        android:src="@drawable/button_reverb"
-        android:textColorHint="@color/black_overlay" />
-
-    <ImageButton
         android:id="@+id/wahWahRef"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="29dp"
         android:background="@null"
         android:src="@drawable/button_wahwah"
-        android:textColorHint="@color/black_overlay" />
-
-    <ImageButton
-        android:id="@+id/acceleroFootRef"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:background="@null"
-        android:src="@drawable/button_accelerofoot"
         android:textColorHint="@color/black_overlay" />
 
     <ImageButton
         android:id="@+id/acceleroWahWahRef"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/acceleroFootRef"
+        android:layout_above="@+id/wahWahRef"
         android:layout_centerHorizontal="true"
-        android:layout_alignParentTop="true"
-         android:layout_marginTop="305dp"
         android:background="@null"
         android:src="@drawable/button_accelerowahwah"
+        android:textColorHint="@color/black_overlay" />
+
+    <ImageButton
+        android:id="@+id/acceleroFootRef"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/acceleroWahWahRef"
+        android:layout_alignLeft="@+id/wahWahRef"
+        android:background="@null"
+        android:src="@drawable/button_accelerofoot"
+        android:textColorHint="@color/black_overlay" />
+
+    <ImageButton
+        android:id="@+id/reverbRef"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/acceleroFootRef"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="108dp"
+        android:background="@null"
+        android:src="@drawable/button_reverb"
         android:textColorHint="@color/black_overlay" />
 
 </RelativeLayout>
