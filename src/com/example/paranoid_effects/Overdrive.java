@@ -7,11 +7,20 @@ import android.util.Log;
 
 import com.example.paranoid_base.ParanoidEffect;
 
-public class AcceleroFoot extends ParanoidEffect {
+public class Overdrive extends ParanoidEffect {
+	private boolean enableReverb;
+	public boolean isEnableReverb() {
+		return enableReverb;
+	}
+
+	public void setEnableReverb(boolean enableReverb) {
+		this.enableReverb = enableReverb;
+	}
+
 	private EnvironmentalReverb reverb;
 
-	public AcceleroFoot() {
-		super("AcceleroFootRecording.pcm");
+	public Overdrive() {
+		super("OverdriveRecording.pcm");
 		int decayTime = 5000;
 		short density = 500;
 		short diffusion = 500;
@@ -32,45 +41,24 @@ public class AcceleroFoot extends ParanoidEffect {
 		reverb.setReverbDelay(reverbDelay);
 	}
 
-	public void AcceleroFootLoop() {
-
+	public void overdriveLoop() {
+		double volume = 25.0;
+		float leftVolumeLow = (float) 0.5;
+		float rightVolumeLow = (float) 0.5;
+		int offset = 0;
+		double wetSample;
+		short convertedSample;
 		try {
-			reverb.setEnabled(true);
+			reverb.setEnabled(enableReverb);
 			paranoidTrack.attachAuxEffect(reverb.getId());
 			paranoidTrack.setAuxEffectSendLevel(100.0f);
-
 			paranoidTrack.play();
-			int i = 0;
-			int o = 0;
-			double wetSample;
-			short convertedSample;
-			float leftVolumeLow = (float) 0.25;
-			float rightVolumeLow = (float) 0.25;
-			float leftVolumeHigh = (float) 1.0;
-			float rightVolumeHigh = (float) 1.0;
-			double volume = 10.0;
+			paranoidTrack.setStereoVolume(leftVolumeLow, rightVolumeLow);
 			paranoidRecord.startRecording();
+			int i = 0;
 			while (recording) {
-				o = paranoidRecord.read(audioData, 0, minBufferSize);
-				for (i = 0; i < o; i++) {
-					if (axisY < 3.0) {
-						reverb.setEnabled(true);
-						volume = 10.0;
-						paranoidTrack.setStereoVolume(leftVolumeLow,
-								rightVolumeLow);
-					}
-					if (axisY > 3.0 && axisY < 5.0) {
-						reverb.setEnabled(false);
-						volume = 45.0;
-						paranoidTrack.setStereoVolume(leftVolumeLow,
-								rightVolumeLow);
-					}
-					if (axisY > 5.0 && axisY < 7.0) {
-						reverb.setEnabled(false);
-						volume = 10.0;
-						paranoidTrack.setStereoVolume(leftVolumeHigh,
-								rightVolumeHigh);
-					}
+				offset = paranoidRecord.read(audioData, 0, minBufferSize);
+				for (i = 0; i < offset; i++) {
 					wetSample = (short) audioData[i] * volume;
 					if (wetSample < -32767.0f) {
 						wetSample = -32767.0f;
@@ -81,25 +69,19 @@ public class AcceleroFoot extends ParanoidEffect {
 					convertedSample = (short) wetSample;
 					audioData[i] = convertedSample;
 					dataOutputStream.writeShort(audioData[i]);
-					dataOutputStream.writeShort(audioData[i]);
 				}
-				paranoidTrack.write(audioData, 0, o);
+
+				paranoidTrack.write(audioData, 0, offset);
 				if (i == minBufferSize) {
 					i = 0;
 				}
 			}
 			turnOffEffectLoop();
 		} catch (IOException e) {
+
 			e.printStackTrace();
 			Log.d("Erro", "Falha na inicializacao dos componentes do loop");
 		}
 	}
 
-	public void enableReverb() {
-		reverb.setEnabled(true);
-	}
-
-	public void disableReverb() {
-		reverb.setEnabled(false);
-	}
 }

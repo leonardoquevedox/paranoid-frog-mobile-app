@@ -10,31 +10,28 @@ import android.view.View.OnClickListener;
 import android.widget.ImageButton;
 
 import com.example.paranoid_effects.AcceleroFootActivity;
-import com.example.paranoid_effects.AcceleroWahWahActivity;
-import com.example.paranoid_effects.ReverbActivity;
-import com.example.paranoid_effects.DistortionActivity;
+import com.example.paranoid_effects.AcceleroTremeloActivity;
+import com.example.paranoid_effects.OverdriveActivity;
+import com.example.paranoid_effects.WahWahActivity;
 import com.example.paranoidfrog.R;
 
 public class MainActivity extends Activity {
-	
-	ImageButton fuzzRef, wahWahRef, acceleroFootRef, acceleroWahWahRef;
 
-	
+	ImageButton overdriveRef, wahWahRef, acceleroFootRef, acceleroWahWahRef;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		wahWahRef = (ImageButton)findViewById(R.id.wahWahRef);
-		 fuzzRef = (ImageButton)findViewById(R.id.reverbRef);
-		 acceleroFootRef = (ImageButton)findViewById(R.id.acceleroFootRef);
-		 acceleroWahWahRef = (ImageButton)findViewById(R.id.acceleroWahWahRef);
-		 
-		 
-		wahWahRef.setOnClickListener(wahWahRefOnClickListener);
-		fuzzRef.setOnClickListener(fuzzRefOnClickListener);
-		acceleroFootRef.setOnClickListener(acceleroFootRefOnClickListener);
-		acceleroWahWahRef.setOnClickListener(acceleroWahWahRefOnClickListener);
+		wahWahRef = (ImageButton) findViewById(R.id.wahWahRef);
+		overdriveRef = (ImageButton) findViewById(R.id.overdriveRef);
+		acceleroFootRef = (ImageButton) findViewById(R.id.acceleroFootRef);
+		acceleroWahWahRef = (ImageButton) findViewById(R.id.acceleroTremeloRef);
+
+		wahWahRef.setOnClickListener(wahWahOnClickListener);
+		overdriveRef.setOnClickListener(overdriveOnClickListener);
+		acceleroFootRef.setOnClickListener(acceleroFootOnClickListener);
+		acceleroWahWahRef.setOnClickListener(acceleroWahWahOnClickListener);
 	}
 
 	@Override
@@ -43,50 +40,49 @@ public class MainActivity extends Activity {
 		getMenuInflater().inflate(R.menu.paranoid, menu);
 		return true;
 	}
-	OnClickListener wahWahRefOnClickListener = new OnClickListener(){
-		 @Override
-		  public void onClick(View arg0) {
-			 Intent i = new Intent(getApplicationContext(), DistortionActivity.class);
-			 startActivity(i);
-			  
-		  	}
-	};
-	
-	OnClickListener fuzzRefOnClickListener = new OnClickListener(){
-		 @Override
-		  public void onClick(View arg0) {
-			 Intent i = new Intent(getApplicationContext(), ReverbActivity.class);
-			 startActivity(i);
-			  
-		  	}
-	};
-	
-	OnClickListener acceleroWahWahRefOnClickListener = new OnClickListener(){
-		 @Override
-		  public void onClick(View arg0) {
-			 Intent i = new Intent(getApplicationContext(), AcceleroWahWahActivity.class);
-			 startActivity(i);
-			  
-		  	}
+
+	OnClickListener wahWahOnClickListener = new OnClickListener() {
+		@Override
+		public void onClick(View arg0) {
+			Intent i = new Intent(getApplicationContext(), WahWahActivity.class);
+			startActivity(i);
+		}
 	};
 
-	OnClickListener acceleroFootRefOnClickListener = new OnClickListener(){
-		 @Override
-		  public void onClick(View arg0) {
-			 
-			 try{
-			 Intent i = new Intent(getApplicationContext(), AcceleroFootActivity.class);
-			 startActivity(i);
-			 }
-			 catch (Exception e){
-				 e.printStackTrace();
-				 Log.d("Error", "Unable to start acceleroFootActivity");
-			 }
-			
-			  
-		  	}
+	OnClickListener overdriveOnClickListener = new OnClickListener() {
+		@Override
+		public void onClick(View arg0) {
+			Intent i = new Intent(getApplicationContext(),
+					OverdriveActivity.class);
+			startActivity(i);
+
+		}
 	};
 
+	OnClickListener acceleroWahWahOnClickListener = new OnClickListener() {
+		@Override
+		public void onClick(View arg0) {
+			Intent i = new Intent(getApplicationContext(),
+					AcceleroTremeloActivity.class);
+			startActivity(i);
 
+		}
+	};
+
+	OnClickListener acceleroFootOnClickListener = new OnClickListener() {
+		@Override
+		public void onClick(View arg0) {
+
+			try {
+				Intent i = new Intent(getApplicationContext(),
+						AcceleroFootActivity.class);
+				startActivity(i);
+			} catch (Exception e) {
+				e.printStackTrace();
+				Log.d("Error", "Unable to start acceleroFootActivity");
+			}
+
+		}
+	};
 
 }

@@ -11,44 +11,45 @@
     android:keepScreenOn="true" >
 
     <ImageButton
-        android:id="@+id/wahWahRef"
+        android:id="@+id/acceleroTremeloRef"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
+        android:layout_alignRight="@+id/overdriveRef"
+        android:layout_below="@+id/acceleroFootRef"
         android:background="@null"
-        android:src="@drawable/button_wahwah"
-        android:textColorHint="@color/black_overlay" />
-
-    <ImageButton
-        android:id="@+id/acceleroWahWahRef"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/wahWahRef"
-        android:layout_centerHorizontal="true"
-        android:background="@null"
-        android:src="@drawable/button_accelerowahwah"
+        android:src="@drawable/button_accelero_tremelo"
         android:textColorHint="@color/black_overlay" />
 
     <ImageButton
         android:id="@+id/acceleroFootRef"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/acceleroWahWahRef"
-        android:layout_alignLeft="@+id/wahWahRef"
+        android:layout_alignParentLeft="true"
+        android:layout_alignTop="@+id/wahWahRef"
+        android:layout_marginTop="64dp"
         android:background="@null"
         android:src="@drawable/button_accelerofoot"
         android:textColorHint="@color/black_overlay" />
 
     <ImageButton
-        android:id="@+id/reverbRef"
+        android:id="@+id/wahWahRef"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/acceleroFootRef"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="108dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="208dp"
         android:background="@null"
-        android:src="@drawable/button_reverb"
+        android:src="@drawable/button_wahwah"
+        android:textColorHint="@color/black_overlay" />
+
+    <ImageButton
+        android:id="@+id/overdriveRef"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/acceleroFootRef"
+        android:layout_alignLeft="@+id/wahWahRef"
+        android:background="@null"
+        android:src="@drawable/button_overdrive"
         android:textColorHint="@color/black_overlay" />
 
 </RelativeLayout>

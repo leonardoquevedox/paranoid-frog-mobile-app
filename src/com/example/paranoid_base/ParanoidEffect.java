@@ -1,12 +1,16 @@
 package com.example.paranoid_base;
 
 import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 
 import android.media.AudioFormat;
 import android.media.AudioManager;
@@ -14,30 +18,67 @@ import android.media.AudioRecord;
 import android.media.AudioTrack;
 import android.media.MediaRecorder;
 import android.os.Environment;
+import android.util.Log;
 
 public class ParanoidEffect {
-	protected int paranoidSampleRate = 44100;
-	
-	protected boolean recording = false;
 
-	protected Float axisY = (float) 0;
+	protected int paranoidSampleRate;
+	protected boolean recording;
+	protected Float axisY;
+	protected int minBufferSize;
+	protected AudioRecord paranoidRecord;
+	protected AudioTrack paranoidTrack;
+	protected short[] audioData;
 
-	protected int minBufferSize = AudioTrack.getMinBufferSize(
-			paranoidSampleRate, AudioFormat.CHANNEL_OUT_MONO,
-			AudioFormat.ENCODING_PCM_16BIT);
+	protected File file;
+	protected OutputStream outputStream;
+	protected BufferedOutputStream bufferedOutputStream;
+	protected DataOutputStream dataOutputStream;
 
-	protected AudioRecord paranoidRecord = new AudioRecord(
-			MediaRecorder.AudioSource.DEFAULT, paranoidSampleRate,
-			AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT,
-			minBufferSize);
+	public ParanoidEffect(String fileName) {
+		try {
+			this.setupOutputToFile(fileName);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			Log.d("Failure!", "Failure on output file inicialization!");
+		}
+		this.paranoidSampleRate = 44100;
+		this.recording = false;
+		this.minBufferSize = AudioTrack.getMinBufferSize(paranoidSampleRate,
+				AudioFormat.CHANNEL_OUT_MONO, AudioFormat.ENCODING_PCM_16BIT);
+		this.paranoidRecord = new AudioRecord(
+				MediaRecorder.AudioSource.DEFAULT, paranoidSampleRate,
+				AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT,
+				minBufferSize);
+		this.paranoidTrack = new AudioTrack(AudioManager.STREAM_MUSIC,
+				paranoidSampleRate, AudioFormat.CHANNEL_CONFIGURATION_MONO,
+				AudioFormat.ENCODING_PCM_16BIT, minBufferSize,
+				AudioTrack.MODE_STREAM);
+		this.axisY = 0f;
+		this.audioData = new short[minBufferSize];
+	}
 
-	protected AudioTrack paranoidTrack = new AudioTrack(
-			AudioManager.STREAM_MUSIC, paranoidSampleRate,
-			AudioFormat.CHANNEL_CONFIGURATION_MONO,
-			AudioFormat.ENCODING_PCM_16BIT, minBufferSize,
-			AudioTrack.MODE_STREAM);
+	private void setupOutputToFile(String fileName)
+			throws FileNotFoundException {
+		File file = new File(Environment.getExternalStorageDirectory(),
+				fileName);
+		file.setWritable(true);
+		this.outputStream = new FileOutputStream(file);
+		this.bufferedOutputStream = new BufferedOutputStream(outputStream);
+		this.dataOutputStream = new DataOutputStream(bufferedOutputStream);
+	}
 
-	protected short[] audioData = new short[minBufferSize];
+	public void closeStreams() {
+		try {
+			this.outputStream.close();
+			this.bufferedOutputStream.close();
+			this.dataOutputStream.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+			Log.d("Failure!", "Failure on closing the output streams!");
+		}
+
+	}
 
 	public boolean isRecording() {
 		return recording;
@@ -56,6 +97,7 @@ public class ParanoidEffect {
 	}
 
 	public void playRecord() {
+		// TODO Play file with specific effect
 		File file = new File(Environment.getExternalStorageDirectory(),
 				"teste.pcm");
 		file.setWritable(true);
@@ -90,10 +132,9 @@ public class ParanoidEffect {
 	}
 
 	protected void turnOffEffectLoop() {
+		this.closeStreams();
 		paranoidRecord.stop();
 		paranoidTrack.stop();
-		paranoidRecord.release();
-		paranoidTrack.release();
 	}
 
 	protected double validateShortValue(double sample) {
